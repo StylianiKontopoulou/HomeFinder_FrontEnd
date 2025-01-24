@@ -90,13 +90,11 @@
   <mat-form-field>
     <mat-label>Property Condition</mat-label>
     <mat-select formControlName="propertyCondition">
-      <!-- <mat-option *ngFor="let condition of propertyConditions" [value]="condition">
-        {{ condition }}
-      </mat-option> -->
-      <mat-option value="NEWLY_BUILT">NEWLY_BUILT</mat-option>
-      <mat-option value="UNDER_CONSTRUCTION">UNDER_CONSTRUCTION</mat-option>
-      <mat-option value="RENOVATED">RENOVATED</mat-option>
-      <mat-option value="NEEDS_RENOVATION">NEEDS_RENOVATION</mat-option>
+      @for (propertyCondition of propertyConditions; track propertyCondition) {
+        <mat-option [value]="propertyCondition.value">
+          {{ propertyCondition.label }}
+        </mat-option>
+      }
     </mat-select>
     @if (
       form.get("propertyCondition").invalid &&
@@ -109,8 +107,10 @@
   <mat-form-field>
     <mat-label>Energy Class</mat-label>
     <mat-select formControlName="energyClass">
-      @for (energy of energyClasses; track energy) {
-        <mat-option [value]="energy">{{energy}}</mat-option>
+      @for (energyClass of energyClasses; track energyClass) {
+        <mat-option [value]="energyClass.value">
+          {{ energyClass.label }}
+        </mat-option>
       }
     </mat-select>
     @if (form.get("energyClass").invalid && form.get("energyClass").touched) {
@@ -122,7 +122,7 @@
     <mat-label>Property Type</mat-label>
     <mat-select formControlName="propertyType">
       @for (type of propertyTypes; track type) {
-        <mat-option [value]="type">{{type}}</mat-option>
+        <mat-option [value]="type.value">{{ type.label }}</mat-option>
       }
     </mat-select>
     @if (form.get("propertyType").invalid && form.get("propertyType").touched) {
@@ -134,7 +134,7 @@
     <mat-label>Area</mat-label>
     <mat-select formControlName="area">
       @for (area of areas; track area) {
-        <mat-option [value]="area">{{area}}</mat-option>
+        <mat-option [value]="area.id">{{ area.name }}</mat-option>
       }
     </mat-select>
     @if (form.get("area").invalid && form.get("area").touched) {

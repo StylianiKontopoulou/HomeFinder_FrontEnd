@@ -7,4 +7,5 @@ export interface Property {
     floor: number;
     bathrooms: number;
     bedrooms: number;
+    area: number;
 }
