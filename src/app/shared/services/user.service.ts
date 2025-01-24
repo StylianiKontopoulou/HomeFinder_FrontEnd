@@ -5,6 +5,7 @@ import { LoginForm } from '../interfaces/login-form';
 import { retry, catchError, throwError, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoggedInUser } from '../interfaces/user';
+import AuthHeaders from '../helpers/authHeaders';
 
 
 const API_URL = `${environment.apiURL}/users`;
@@ -23,19 +24,14 @@ export class UserService {
       this.user.set(JSON.parse(storedUser));
     }
   }
-   // Δημιουργία headers για Basic Auth
-   private createAuthorizationHeader(): HttpHeaders {
-    const auth = 'Basic ' + localStorage.getItem('authorizationHeader');
-    return new HttpHeaders({ Authorization: auth });
-  }
-
+  
   getUser(userId: any): Observable<any> {
-    const headers = this.createAuthorizationHeader();
+    const headers = AuthHeaders.createAuthorizationHeader();
     return this.http.get(`${API_URL}/${userId}`, { headers });
   }
 
   registerUser(user: LoginForm) {
-    const headers = this.createAuthorizationHeader();
+    const headers = AuthHeaders.createAuthorizationHeader();
     return this.http.post<{ msg: string }>(`${API_URL}/register`, user, {headers});
   }
 
