@@ -89,7 +89,7 @@
 
   <mat-form-field>
     <mat-label>Property Condition</mat-label>
-    <mat-select formControlName="propertyCondition">
+    <mat-select formControlName="condition">
       @for (propertyCondition of propertyConditions; track propertyCondition) {
         <mat-option [value]="propertyCondition.value">
           {{ propertyCondition.label }}
@@ -97,8 +97,8 @@
       }
     </mat-select>
     @if (
-      form.get("propertyCondition").invalid &&
-      form.get("propertyCondition").touched
+      form.get("condition").invalid &&
+      form.get("condition").touched
     ) {
       <mat-error>Property condition is required</mat-error>
     }
@@ -134,7 +134,7 @@
     <mat-label>Area</mat-label>
     <mat-select formControlName="area">
       @for (area of areas; track area) {
-        <mat-option [value]="area.id">{{ area.name }}</mat-option>
+        <mat-option [value]="area">{{ area.name }}</mat-option>
       }
     </mat-select>
     @if (form.get("area").invalid && form.get("area").touched) {

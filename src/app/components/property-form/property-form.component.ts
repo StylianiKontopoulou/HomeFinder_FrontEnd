@@ -54,7 +54,7 @@ export class PropertyFormComponent implements OnInit {
     floor: new FormControl('', Validators.required),
     bathrooms: new FormControl('', Validators.required),
     bedrooms: new FormControl('', Validators.required),
-    propertyCondition: new FormControl('', Validators.required),
+    condition: new FormControl('', Validators.required),
     energyClass: new FormControl('', Validators.required),
     propertyType: new FormControl('', Validators.required),
     area: new FormControl('', Validators.required),
@@ -131,9 +131,7 @@ export class PropertyFormComponent implements OnInit {
     return labels[type];
   }
 
-  onSubmit(value: any) {
-    console.log(value);
-
+  onSubmit() {
     const property = this.form.value as unknown as Property;
 
     this.propertyService.addProperty(property).subscribe({
