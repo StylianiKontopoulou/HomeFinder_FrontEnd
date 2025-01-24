@@ -1,1 +1,60 @@
-<p>nav-bar works!</p>
+<div class="navbar navbar-dark bg-primary justify-content-between">
+  <!-- Brand Section -->
+  <a role="button" class="navbar-brand ms-3" routerLink="">
+    Home Finder
+  </a>
+
+  <!-- Right Section -->
+  <div class="d-flex align-items-center">
+    <!-- If User is Logged In -->
+    @if (user()) {
+      <!-- Add Property Link -->
+      <div role="button" class="icon-link-hover text-light me-3" routerLink="property-form">
+        Add Property
+      </div>
+
+      <!-- My Properties Link -->
+      <div role="button" class="icon-link-hover text-light me-3" routerLink="my-properties">
+        My Properties
+      </div>
+
+      <!-- Welcome Dropdown (Moved to End) -->
+      <div class="dropdown">
+        <span
+          class="text-light dropdown-toggle"
+          id="userDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          role="button">
+          Welcome, {{ user().firstName }}
+        </span>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li>
+            <a class="dropdown-item" role="button" (click)="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    }
+    <!-- If User is Not Logged In -->
+    @else {
+      <span class="text-light me-3 d-flex gap-2 align-items-center">
+        <!-- Login Link -->
+        Login
+        <mat-icon
+          role="button"
+          class="icon-link-hover"
+          routerLink="login">
+          login
+        </mat-icon>
+
+        <!-- Signup Link -->
+        <div role="button" class="icon-link-hover" routerLink="signup">
+          Signup
+        </div>
+      </span>
+    }
+  </div>
+</div>

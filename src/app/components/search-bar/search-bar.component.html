@@ -1,0 +1,163 @@
+<!-- <div class="container mt-5">
+    <h1 class="text-center mb-4">Βρείτε το ιδανικό ακίνητο</h1>
+    <form 
+    [formGroup]="form"
+    (ngSubmit)="searchProperty(form.value)">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="location" class="form-label">Περιοχή</label>
+          <input
+            type="text"
+            class="form-control"
+            id="location"
+            [(ngModel)]="searchCriteria.location"
+            name="location"
+            placeholder="π.χ. Αθήνα, Θεσσαλονίκη"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="type" class="form-label">Τύπος</label>
+          <select
+            class="form-select"
+            id="type"
+            [(ngModel)]="searchCriteria.type"
+            name="type"
+          >
+            <option value="rent">Ενοικίαση</option>
+            <option value="buy">Αγορά</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="price" class="form-label">Μέγιστη Τιμή (€)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            [(ngModel)]="searchCriteria.maxPrice"
+            name="price"
+            placeholder="π.χ. 1000"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Αναζήτηση</button>
+    </form>
+  </div> -->
+<h4>Search Properties</h4>
+
+<form
+  [formGroup]="searchForm"
+  class="d-flex flex-column">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="title" />
+    <mat-error
+      *ngIf="
+        searchForm.get('title')?.invalid && searchForm.get('title')?.touched
+      ">
+      Title is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+      <mat-label>Area</mat-label>
+      <mat-select formControlName="area">
+        <mat-option *ngFor="let area of areas" [value]="area">
+          {{ area }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="searchForm.get('area')?.invalid && searchForm.get('area')?.touched">
+        Please select an area
+      </mat-error>
+    </mat-form-field> -->
+
+  <mat-form-field>
+    <mat-label>Property Type</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="priceMin"
+      placeholder="Min Price" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Max Price</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="priceMax"
+      placeholder="Max Price" />
+  </mat-form-field>
+  <form [formGroup]="priceRangeForm">
+    <div class="price-range-container">
+      <!-- <mat-slider
+        min="0"
+        max="10000"
+        step="10"
+        formControlName="priceRange"
+        thumbLabel
+        tickInterval="1000"
+        [displayWith]="displayPriceRange"
+        aria-label="Price Range"
+        discrete="true"
+        showTickMarks="true">
+        <input
+          matSliderStartThumb
+          formControlName="startValue" />
+        <input
+          matSliderEndThumb
+          formControlName="endValue" />
+      </mat-slider>
+
+       <!-- Display Start and End Value above the slider -->
+    <div class="slider-values">
+        <span class="slider-value-label">Start Value: {{ priceRangeForm.value.priceRange[0] | currency }}</span>
+        <span class="slider-value-label">End Value: {{ priceRangeForm.value.priceRange[1] | currency }}</span>
+      </div>
+  
+      <!-- Price Range Slider -->
+      <mat-slider
+        min="0"
+        max="10000"
+        step="10"
+        formControlName="priceRange"
+        thumbLabel
+        tickInterval="1000"
+        [displayWith]="displayPriceRange"
+        aria-label="Price Range"
+        discrete="true"
+        showTickMarks="true"
+        class="slider"
+      >
+      <input
+      matSliderStartThumb
+      formControlName="startValue" />
+    <input
+      matSliderEndThumb
+      formControlName="endValue" /></mat-slider>
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="searchForm.invalid"
+      (click)="onSearch()">
+      Search
+    </button>
+  </form>
+
+  <!-- <div *ngIf="filteredProperties.length > 0" class="property-list">
+    <mat-card *ngFor="let property of filteredProperties">
+      <mat-card-title>{{ property.title }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ property.description }}</p>
+        <p><strong>Price:</strong> {{ property.price | currency }}</p>
+        <p><strong>Area:</strong> {{ property.area.name }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div> -->
+  <div *ngIf="filteredProperties.length === 0">
+    <p>No properties match your criteria.</p>
+  </div>
+</form>

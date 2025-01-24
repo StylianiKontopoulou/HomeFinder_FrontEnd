@@ -1,0 +1,29 @@
+<div class="container my-5">
+    <h4>My Properties</h4>
+    <div class="mt-4">
+      <div class="alert alert-info" role="alert" *ngIf="!properties || properties.length === 0">
+        No properties added yet. Add a new property using the form below.
+      </div>
+    </div>
+  
+    <div class="row" *ngIf="properties && properties.length > 0">
+      <div
+        *ngFor="let property of properties"
+        class="col-xs-12 col-md-6 col-lg-4 mb-sm-2"
+      >
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Property Information</h5>
+            <p class="card-text">
+              <strong>Address:</strong> {{ property.address }}
+            </p>
+            <p class="card-text">
+              <strong>Year of Construction:</strong
+              >{{ property.yearOfConstruction }}
+            </p>
+            <p><strong>Property Type:</strong> {{ property.propertyType }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

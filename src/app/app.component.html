@@ -1,16 +1,11 @@
 <div class="container">
   <div class="d-flex flex-column gap-2">
-    <nav class="navbar navbar-dark bg-primary justify-content-between">
-      <a role="button" class="navbar-brand ms-3" routerLink=""
-        >Home Sweet Home</a
-      >
-    </nav>
-
-    <div class="d-flex flex-row gap-2">
-      
+    <app-navbar></app-navbar>
+    <div class="d-flex flex-row gap-2">  
       <div class="flex-grow-1 p-2 text-nowrap w-75">
-        <router-outlet></router-outlet>
+        <router-outlet></router-outlet>  
       </div>
     </div>
   </div>
+  <app-footer></app-footer>
 </div>

@@ -1,0 +1,51 @@
+/* .price-range-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .price-range-labels {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  } 
+
+  .mat-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    text-align: center;
+  } */
+
+  /* Container for the price range slider */
+.price-range-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  /* Styling for the labels showing start and end values */
+  .slider-values {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .slider-value-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3f51b5; /* Change color as needed */
+  }
+  
+  /* Make the slider bigger */
+  .slider {
+    width: 80%; /* Increase the width of the slider */
+    max-width: 600px; /* Optional: Max width for larger screens */
+    margin-top: 10px;
+  }
+  
