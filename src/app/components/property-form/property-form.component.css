@@ -18,3 +18,22 @@
     max-width: 200px;
     height: auto;
   }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .form-field {
+    flex: 1;
+  }
+  
+  .full-width {
+    width: 100%;
+  }

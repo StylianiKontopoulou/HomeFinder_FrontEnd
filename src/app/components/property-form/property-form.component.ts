@@ -19,6 +19,7 @@ import { PropertyType } from 'src/app/shared/enums/propertyType';
 import { EnergyClass } from 'src/app/shared/enums/energyClass';
 import { PropertyCondition } from 'src/app/shared/enums/propertyCondition';
 import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-property-form',
@@ -30,8 +31,9 @@ import { CommonModule } from '@angular/common';
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
+    MatGridListModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './property-form.component.html',
   styleUrl: './property-form.component.css',
@@ -59,11 +61,11 @@ export class PropertyFormComponent implements OnInit {
     energyClass: new FormControl('', Validators.required),
     propertyType: new FormControl('', Validators.required),
     area: new FormControl('', Validators.required),
-    image: new FormControl('')
+    image: new FormControl(''),
   });
 
   ngOnInit(): void {
-    this.propertyConditions =  Object.keys(PropertyCondition).map((key) => ({
+    this.propertyConditions = Object.keys(PropertyCondition).map((key) => ({
       value: PropertyCondition[key as keyof typeof PropertyCondition],
       label: this.getLabelForPropertyCondition(
         PropertyCondition[key as keyof typeof PropertyCondition],
@@ -128,7 +130,6 @@ export class PropertyFormComponent implements OnInit {
 
   getLabelForPropertyCondition(type: PropertyCondition): string {
     const labels = {
-     
       [PropertyCondition.NEWLY_BUILT]: 'Newly built',
       [PropertyCondition.UNDER_CONSTRUCTION]: 'Under construction',
       [PropertyCondition.RENOVATED]: 'Renovated',
