@@ -1,0 +1,87 @@
+<mat-card class="filter-card">
+  <mat-card-title>Filter Properties</mat-card-title>
+  <mat-card-content>
+    <div class="filter-controls">
+      <!-- Price Filter -->
+      <mat-form-field>
+        <mat-label>Min Price</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="filters.minPrice" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Max Price</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="filters.maxPrice" />
+      </mat-form-field>
+
+      <!-- Property Condition -->
+      <mat-form-field>
+        <mat-label>Condition</mat-label>
+        <mat-select [(ngModel)]="filters.condition">
+          @for (condition of propertyConditions; track condition) {
+            <mat-option [value]="condition.value">
+              {{ condition.label }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Property Type -->
+      <mat-form-field>
+        <mat-label>Type</mat-label>
+        <mat-select [(ngModel)]="filters.propertyType">
+          @for (type of propertyTypes; track type) {
+            <mat-option [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Property Type -->
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <mat-select [(ngModel)]="filters.area">
+          @for (area of areas; track area) {
+            <mat-option [value]="area">
+              {{ area.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <!-- Square Meters -->
+      <mat-form-field>
+        <mat-label>Min Square Meters</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="filters.minSquareMeters" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Max Square Meters</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="filters.maxSquareMeters" />
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="applyFilters()">
+      Apply
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="resetFilters()">
+      Reset
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -35,10 +35,17 @@ export class PropertyService {
     return this.http.get<Property[]>(`${API_URL}?${queryParams.toString()}`, { headers });
   }
 
-    // Κλήση για λήψη όλων των properties με Basic Auth
+    // Κλήση για λήψη όλων των properties του χρήστη με Basic Auth
     getAllMyProperties(userId: any): Observable<any> {
       const headers = AuthHeaders.createAuthorizationHeader();
       const url = `${environment.apiURL}/properties?userId=${userId}`;
+      return this.http.get(url, { headers });
+    }
+
+     // Κλήση για λήψη όλων των properties με Basic Auth
+     getAllProperties(): Observable<any> {
+      const headers = AuthHeaders.createAuthorizationHeader();
+      const url = `${environment.apiURL}/properties`;
       return this.http.get(url, { headers });
     }
 }

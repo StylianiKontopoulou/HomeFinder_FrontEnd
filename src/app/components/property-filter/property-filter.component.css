@@ -1,0 +1,14 @@
+.filter-card {
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+mat-form-field {
+    width: 200px;
+}
