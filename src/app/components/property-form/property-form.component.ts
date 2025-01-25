@@ -18,13 +18,12 @@ import { Area } from 'src/app/shared/interfaces/area';
 import { PropertyType } from 'src/app/shared/enums/propertyType';
 import { EnergyClass } from 'src/app/shared/enums/energyClass';
 import { PropertyCondition } from 'src/app/shared/enums/propertyCondition';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-property-form',
   imports: [
     ReactiveFormsModule,
-    // BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -32,6 +31,7 @@ import { PropertyCondition } from 'src/app/shared/enums/propertyCondition';
     MatOptionModule,
     MatButtonModule,
     MatIconModule,
+    CommonModule
   ],
   templateUrl: './property-form.component.html',
   styleUrl: './property-form.component.css',
@@ -44,6 +44,7 @@ export class PropertyFormComponent implements OnInit {
   energyClasses: { value: EnergyClass; label: string }[];
   propertyTypes: { value: PropertyType; label: string }[];
   areas: Area[];
+  imageError: string | null = null;
 
   form = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -58,6 +59,7 @@ export class PropertyFormComponent implements OnInit {
     energyClass: new FormControl('', Validators.required),
     propertyType: new FormControl('', Validators.required),
     area: new FormControl('', Validators.required),
+    image: new FormControl('')
   });
 
   ngOnInit(): void {
@@ -83,7 +85,6 @@ export class PropertyFormComponent implements OnInit {
     }));
     this.areaService.getAllAreas().subscribe({
       next: (response) => {
-        console.log(response);
         this.areas = response;
       },
       error: (response) => {
@@ -93,6 +94,26 @@ export class PropertyFormComponent implements OnInit {
     });
   }
 
+  onImageUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+
+      if (file.size > 500 * 1024) {
+        this.imageError = 'Image size should not exceed 500KB.';
+        this.form.get('image')?.setValue(null);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        this.form.get('image')?.setValue(base64String);
+        this.imageError = null;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   getLabelForPropertyType(type: PropertyType): string {
     const labels = {
       [PropertyType.APARTMENT]: 'Apartment',
@@ -133,7 +154,7 @@ export class PropertyFormComponent implements OnInit {
 
   onSubmit() {
     const property = this.form.value as unknown as Property;
-
+    console.log(property);
     this.propertyService.addProperty(property).subscribe({
       next: (response) => {
         console.log('Property added', response);

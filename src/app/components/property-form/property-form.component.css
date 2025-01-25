@@ -1,0 +1,20 @@
+.file-container {
+    margin-bottom: 10px;
+}
+.file-input-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .file-name {
+    font-size: 0.9rem;
+  }
+  
+  .image-preview img {
+    border: 1px solid #c4c4cd;
+    border-radius: 4px;
+    padding: 4px;
+    max-width: 200px;
+    height: auto;
+  }

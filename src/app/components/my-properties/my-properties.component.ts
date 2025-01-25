@@ -4,10 +4,20 @@ import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/shared/services/property.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-properties',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatGridListModule,
+  ],
   templateUrl: './my-properties.component.html',
   styleUrl: './my-properties.component.css',
 })
@@ -29,7 +39,6 @@ export class MyPropertiesComponent implements OnInit {
   route = inject(ActivatedRoute);
   propertyId: number = 0;
   selectedPropertyId: number | null = null;
-
   ngOnInit(): void {
     // this.userForm.patchValue({
     //   address: this.UserService.user().address,
@@ -43,7 +52,7 @@ export class MyPropertiesComponent implements OnInit {
     // }
 
     // // Get all user's properties
-    console.log('here')
+    console.log('here');
     this.service.getAllMyProperties(this.UserService.user().id).subscribe({
       next: (response) => {
         this.properties = response;

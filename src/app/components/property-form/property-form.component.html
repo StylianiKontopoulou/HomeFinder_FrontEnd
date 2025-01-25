@@ -96,10 +96,7 @@
         </mat-option>
       }
     </mat-select>
-    @if (
-      form.get("condition").invalid &&
-      form.get("condition").touched
-    ) {
+    @if (form.get("condition").invalid && form.get("condition").touched) {
       <mat-error>Property condition is required</mat-error>
     }
   </mat-form-field>
@@ -141,6 +138,35 @@
       <mat-error>Area is required</mat-error>
     }
   </mat-form-field>
+  
+  <div class="file-container">
+    <div class="file-input-container">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="fileInput.click()">
+        Upload Image
+      </button>
+      <input
+        #fileInput
+        type="file"
+        accept="image/*"
+        hidden
+        (change)="onImageUpload($event)" />
+      <span *ngIf="form.get('image').value" class="file-name">
+        Image selected
+      </span>
+      <mat-error *ngIf="imageError">{{ imageError }}</mat-error>
+    </div>
+    
+    <div *ngIf="form.get('image').value" class="image-preview">
+      <h5>Image Preview:</h5>
+      <img
+        [src]="form.get('image').value"
+        alt="Property Image"
+        style="max-width: 100%; height: auto;" />
+    </div>
+  </div>
 
   <button
     mat-flat-button

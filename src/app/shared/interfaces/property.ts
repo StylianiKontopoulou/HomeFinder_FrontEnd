@@ -16,4 +16,5 @@ export interface Property {
   energyClass: EnergyClass;
   propertyType: PropertyType;
   area: Area;
+  image: string;
 }
