@@ -12,6 +12,7 @@ import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
 import { Area } from 'src/app/shared/interfaces/area';
 import { PropertyFilter } from 'src/app/shared/interfaces/property-filter';
 import { AreaService } from 'src/app/shared/services/area.service';
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-property-filter',
@@ -22,6 +23,7 @@ import { AreaService } from 'src/app/shared/services/area.service';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
+    MatExpansionModule
   ],
   templateUrl: './property-filter.component.html',
   styleUrl: './property-filter.component.css',
