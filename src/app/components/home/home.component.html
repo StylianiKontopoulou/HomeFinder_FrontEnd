@@ -68,7 +68,10 @@
           </p>
           <div class="property-info-row">
             <span>
-              <strong>Floor:</strong>
+              <mat-icon class="material-icons-outlined"
+                aria-hidden="false"
+                aria-label="Floor"
+                fontIcon="stairs"></mat-icon>
               {{ filteredProperty.floor }}
             </span>
             <span>
@@ -76,15 +79,13 @@
                 aria-hidden="false"
                 aria-label="Bedrooms"
                 fontIcon="bed"></mat-icon>
-              &nbsp;
               {{ filteredProperty.bedrooms }}
             </span>
             <span>
-              <mat-icon
+              <mat-icon class="material-icons-outlined"
                 aria-hidden="false"
                 aria-label="Bathrooms"
-                fontIcon="bathroom"></mat-icon>
-              &nbsp;
+                fontIcon="shower"></mat-icon>
               {{ filteredProperty.bathrooms }}
             </span>
           </div>
