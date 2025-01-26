@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +12,16 @@ import { RouterLink } from '@angular/router';
 import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
 import { Property } from 'src/app/shared/interfaces/property';
 import { UserService } from 'src/app/shared/services/user.service';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { DeletePropertyConfirmDialogComponent } from '../delete-property-confirm-dialog/delete-property-confirm-dialog.component';
+import { PropertyService } from 'src/app/shared/services/property.service';
 
 @Component({
   selector: 'app-property-card',
@@ -16,6 +32,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class PropertyCardComponent implements OnInit {
   @Input() property!: Property;
   userService = inject(UserService);
+  propertyService = inject(PropertyService);
+  readonly dialog = inject(MatDialog);
   userOwned: boolean = false;
 
   ngOnInit(): void {
@@ -40,5 +58,30 @@ export class PropertyCardComponent implements OnInit {
 
   getPropertyConditionLabel(): string {
     return EnumHelpers.getLabelForPropertyCondition(this.property.condition);
+  }
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+  ): void {
+    const dialogRef = this.dialog.open(DeletePropertyConfirmDialogComponent, {
+      width: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result){
+        this.propertyService.deleteProperty(this.property.id)
+        .subscribe({
+          next: (response) => {
+            window.location.reload();
+          },
+          error: (response) => {
+            console.log('Error deleting properties', response);
+          },
+        });
+      }
+    });
   }
 }

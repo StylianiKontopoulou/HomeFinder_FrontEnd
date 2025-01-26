@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Delete property</h2>
+<mat-dialog-content>
+  Are you sure you want to delete your property?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-button
+    (click)="onCancel()">
+    Cancel
+  </button>
+  <button
+    mat-button
+    (click)="onConfirm()"
+    cdkFocusInitial>
+    Confirm
+  </button>
+</mat-dialog-actions>
