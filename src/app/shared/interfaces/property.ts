@@ -5,6 +5,7 @@ import { Area } from './area';
 import { User } from './user';
 
 export interface Property {
+  id: number;
   title: string;
   description: string;
   yearOfConstruction: number;

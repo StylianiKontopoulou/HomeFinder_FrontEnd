@@ -7,42 +7,49 @@ import { FileNotFoundComponent } from './components/file-not-found/file-not-foun
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
+import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 
 export const routes: Routes = [
-    {
-        path: 'signup',
-        component: SignupComponent
-    },
-    {
-        path: 'login',
-        component: LoginFormComponent
-    },
-    {
-        path: 'home',
-        component: HomeComponent
-    },
-    {
-        path: 'user/:id', 
-        component:UserComponent
-    },
-    {
-        path: '', redirectTo: 'home', 
-        pathMatch: 'full'
-    },
-    {
-        path: 'property-form',
-        component: PropertyFormComponent
-    },
-    { 
-        path: 'unauthorized', 
-        component: UnauthorizedComponent 
-    }, 
-    { 
-        path: 'my-properties', 
-        component: MyPropertiesComponent 
-    }, 
-    {
-        path: '**', 
-        component:FileNotFoundComponent}
-
+  {
+    path: 'signup',
+    component: SignupComponent,
+  },
+  {
+    path: 'login',
+    component: LoginFormComponent,
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'user/:id',
+    component: UserComponent,
+  },
+  {
+    path: 'property-form',
+    component: PropertyFormComponent,
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent,
+  },
+  {
+    path: 'my-properties',
+    component: MyPropertiesComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'my-properties/:id',
+    component: PropertyDetailsComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: FileNotFoundComponent,
+  },
 ];

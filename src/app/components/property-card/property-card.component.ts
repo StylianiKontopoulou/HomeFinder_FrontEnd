@@ -2,13 +2,14 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
 import { Property } from 'src/app/shared/interfaces/property';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-property-card',
-  imports: [MatCardModule, MatIconModule, MatButtonModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './property-card.component.html',
   styleUrl: './property-card.component.css',
 })

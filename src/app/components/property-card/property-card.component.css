@@ -9,3 +9,19 @@
     gap: 30px;
     align-items: center;
 }
+
+.action-bar {
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff!important; 
+}
+
+.edit-button {
+    background-color: #005cbb;
+    color: #fff!important; 
+}
