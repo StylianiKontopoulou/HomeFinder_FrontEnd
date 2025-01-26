@@ -21,7 +21,7 @@ import { PropertyCondition } from 'src/app/shared/enums/propertyCondition';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-property-form',
@@ -42,6 +42,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PropertyFormComponent implements OnInit {
   isEditMode: boolean = false;
+  router = inject(Router);
   route = inject(ActivatedRoute);
   propertyService = inject(PropertyService);
   areaService = inject(AreaService);
@@ -163,11 +164,11 @@ export class PropertyFormComponent implements OnInit {
       if (this.isEditMode) {
         this.propertyService.updateProperty(property).subscribe({
           next: (response) => {
-            console.log('Property updated', response);
+            this.router.navigate(['my-properties']);
           },
           error: (response) => {
             const message = response.error.msg;
-            console.log('Error adding property', message);
+            console.log('Error updating property', message);
           },
         });
       }
@@ -175,7 +176,7 @@ export class PropertyFormComponent implements OnInit {
       else {
         this.propertyService.addProperty(property).subscribe({
           next: (response) => {
-            console.log('Property added', response);
+            this.router.navigate(['my-properties']);
           },
           error: (response) => {
             const message = response.error.msg;
