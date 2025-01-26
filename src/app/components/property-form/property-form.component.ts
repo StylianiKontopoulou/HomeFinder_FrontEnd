@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PropertyUse } from 'src/app/shared/enums/propertyUse';
 
 @Component({
   selector: 'app-property-form',
@@ -49,6 +50,7 @@ export class PropertyFormComponent implements OnInit {
   propertyConditions: { value: PropertyCondition; label: string }[];
   energyClasses: { value: EnergyClass; label: string }[];
   propertyTypes: { value: PropertyType; label: string }[];
+  propertyUses: {value: PropertyUse; label: string }[];
   areas: Area[];
   imageError: string | null = null;
 
@@ -67,6 +69,7 @@ export class PropertyFormComponent implements OnInit {
     propertyType: new FormControl('', Validators.required),
     areaId: new FormControl('', Validators.required),
     image: new FormControl(''),
+    propertyUse: new FormControl('', Validators.required)
   });
 
   ngOnInit(): void {
@@ -81,6 +84,13 @@ export class PropertyFormComponent implements OnInit {
       value: EnergyClass[key as keyof typeof EnergyClass],
       label: EnumHelpers.getLabelForEnergyClass(
         EnergyClass[key as keyof typeof EnergyClass],
+      ),
+    }));
+
+    this.propertyUses = Object.keys(PropertyUse).map((key) => ({
+      value: PropertyUse[key as keyof typeof PropertyUse],
+      label: EnumHelpers.getLabelForPropertyUse(
+        PropertyUse[key as keyof typeof PropertyUse],
       ),
     }));
 
@@ -120,6 +130,7 @@ export class PropertyFormComponent implements OnInit {
             propertyType: response.propertyType.toString(),
             areaId: response.area.id,
             image: response.image?.toString(),
+            propertyUse: response.propertyUse.toString()
           });
         },
         error: (response) => {

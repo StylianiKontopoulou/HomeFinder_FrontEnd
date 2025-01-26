@@ -1,6 +1,7 @@
 import { EnergyClass } from '../enums/energyClass';
 import { PropertyCondition } from '../enums/propertyCondition';
 import { PropertyType } from '../enums/propertyType';
+import { PropertyUse } from '../enums/propertyUse';
 
 export default class EnumHelpers {
   static getLabelForPropertyType(type: PropertyType): string {
@@ -36,6 +37,14 @@ export default class EnumHelpers {
       [EnergyClass.E]: 'E',
       [EnergyClass.Z]: 'Z',
       [EnergyClass.H]: 'H',
+    };
+    return labels[type];
+  }
+
+  static getLabelForPropertyUse(type: PropertyUse): string {
+    const labels = {
+      [PropertyUse.SALE]: 'Sale',
+      [PropertyUse.RENT]: 'Rent',
     };
     return labels[type];
   }

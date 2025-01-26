@@ -18,7 +18,7 @@
     }
     <p>
       <strong>
-        {{ getPropertyTypeLabel() }}, {{ property.squareMeters }} m²
+        {{ getPropertyTypeLabel() }}, {{ property.squareMeters }} m² , {{getPropertyUseLabel()}}
       </strong>
     </p>
     <p>
@@ -71,6 +71,14 @@
       <strong>Condition:</strong>
       {{ getPropertyConditionLabel() }}
     </p>
+    <span>
+      <mat-icon
+      class="material-icons-outlined"
+          aria-hidden="false"
+          aria-label="Contact phone"
+          fontIcon="contact_phone">
+          </mat-icon>{{property.user.phoneNumber}}
+    </span>
   </mat-card-content>
   @if (userOwned) {
     <mat-card-actions class="action-bar">

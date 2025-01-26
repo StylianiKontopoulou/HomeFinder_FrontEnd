@@ -60,6 +60,10 @@ export class PropertyCardComponent implements OnInit {
     return EnumHelpers.getLabelForPropertyCondition(this.property.condition);
   }
 
+  getPropertyUseLabel(): string {
+    return EnumHelpers.getLabelForPropertyUse(this.property.propertyUse);
+  }
+
   openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string,

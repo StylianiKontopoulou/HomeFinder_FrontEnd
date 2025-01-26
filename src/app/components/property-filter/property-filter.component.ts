@@ -13,6 +13,8 @@ import { Area } from 'src/app/shared/interfaces/area';
 import { PropertyFilter } from 'src/app/shared/interfaces/property-filter';
 import { AreaService } from 'src/app/shared/services/area.service';
 import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { PropertyUse } from 'src/app/shared/enums/propertyUse';
 
 @Component({
   selector: 'app-property-filter',
@@ -23,6 +25,7 @@ import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
+    MatIconModule,
     MatExpansionModule
   ],
   templateUrl: './property-filter.component.html',
@@ -37,6 +40,7 @@ export class PropertyFilterComponent implements OnInit {
   propertyConditions: { value: PropertyCondition; label: string }[];
   energyClasses: { value: EnergyClass; label: string }[];
   propertyTypes: { value: PropertyType; label: string }[];
+  propertyUses: { value: PropertyUse; label: string }[];
   areas: Area[];
 
   applyFilters() {
@@ -67,6 +71,13 @@ export class PropertyFilterComponent implements OnInit {
       value: PropertyType[key as keyof typeof PropertyType],
       label: EnumHelpers.getLabelForPropertyType(
         PropertyType[key as keyof typeof PropertyType],
+      ),
+    }));
+
+    this.propertyUses = Object.keys(PropertyUse).map((key) => ({
+      value: PropertyUse[key as keyof typeof PropertyUse],
+      label: EnumHelpers.getLabelForPropertyUse(
+        PropertyUse[key as keyof typeof PropertyUse],
       ),
     }));
 

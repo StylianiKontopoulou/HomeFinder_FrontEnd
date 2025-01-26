@@ -22,6 +22,25 @@
       </mat-form-field>
     </mat-grid-tile>
 
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <mat-label>Property Use</mat-label>
+        <mat-select formControlName="propertyUse">
+          @for (
+            propertyUse of propertyUses;
+            track propertyUse
+          ) {
+            <mat-option [value]="propertyUse.value">
+              {{ propertyUse.label }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.get("propertyUse").invalid && form.get("propertyUse").touched) {
+          <mat-error>Property use is required</mat-error>
+        }
+      </mat-form-field>
+    </mat-grid-tile>
+
     <mat-grid-tile
       colspan="4"
       rowspan="2">

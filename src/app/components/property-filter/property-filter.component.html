@@ -1,93 +1,91 @@
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Filter Properties</mat-panel-title>
-    </mat-expansion-panel-header>
-    <div class="filter-controls">
-      <!-- Price Filter -->
-      <mat-form-field>
-        <mat-label>Min Price</mat-label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="filters.minPrice" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Max Price</mat-label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="filters.maxPrice" />
-      </mat-form-field>
+<mat-card class="filter-card">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="filter-header">
+          <mat-icon class="filter-icon">filter_list</mat-icon>
+          Filter Properties
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="filter-controls">
+        <!-- Price Filter -->
+        <div class="filter-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Min Price</mat-label>
+            <input matInput type="number" [(ngModel)]="filters.minPrice" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Max Price</mat-label>
+            <input matInput type="number" [(ngModel)]="filters.maxPrice" />
+          </mat-form-field>
+          <!-- Property Use -->
+          <mat-form-field appearance="outline">
+            <mat-label>Property Use</mat-label>
+            <mat-select [(ngModel)]="filters.propertyUses" multiple>
+              @for (propertyUse of propertyUses; track propertyUse) {
+                <mat-option [value]="propertyUse.value">
+                  {{ propertyUse.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <!-- Property Condition -->
+        <div class="filter-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Condition</mat-label>
+            <mat-select [(ngModel)]="filters.conditions" multiple>
+              @for (condition of propertyConditions; track condition) {
+                <mat-option [value]="condition.value">
+                  {{ condition.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-      <!-- Property Condition -->
-      <mat-form-field>
-        <mat-label>Condition</mat-label>
-        <mat-select
-          [(ngModel)]="filters.conditions"
-          multiple>
-          @for (condition of propertyConditions; track condition) {
-            <mat-option [value]="condition.value">
-              {{ condition.label }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <!-- Property Type -->
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="filters.propertyTypes" multiple>
+              @for (type of propertyTypes; track type) {
+                <mat-option [value]="type.value">
+                  {{ type.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-      <!-- Property Type -->
-      <mat-form-field>
-        <mat-label>Type</mat-label>
-        <mat-select
-          [(ngModel)]="filters.propertyTypes"
-          multiple>
-          @for (type of propertyTypes; track type) {
-            <mat-option [value]="type.value">
-              {{ type.label }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <!-- Area -->
+          <mat-form-field appearance="outline">
+            <mat-label>Area</mat-label>
+            <mat-select [(ngModel)]="filters.areas" multiple>
+              @for (area of areas; track area) {
+                <mat-option [value]="area">
+                  {{ area.name }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <!-- Property Type -->
-      <mat-form-field>
-        <mat-label>Area</mat-label>
-        <mat-select
-          [(ngModel)]="filters.areas"
-          multiple>
-          @for (area of areas; track area) {
-            <mat-option [value]="area">
-              {{ area.name }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <!-- Square Meters -->
-      <mat-form-field>
-        <mat-label>Min Square Meters</mat-label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="filters.minSquareMeters" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Max Square Meters</mat-label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="filters.maxSquareMeters" />
-      </mat-form-field>
-    </div>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="applyFilters()">
-      Apply
-    </button>
-    <button
-      mat-raised-button
-      color="warn"
-      (click)="resetFilters()">
-      Reset
-    </button>
-  </mat-expansion-panel>
-</mat-accordion>
+        <!-- Square Meters -->
+        <div class="filter-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Min Square Meters</mat-label>
+            <input matInput type="number" [(ngModel)]="filters.minSquareMeters" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Max Square Meters</mat-label>
+            <input matInput type="number" [(ngModel)]="filters.maxSquareMeters" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button mat-raised-button color="primary" (click)="applyFilters()">Apply</button>
+        <button mat-raised-button color="warn" (click)="resetFilters()">Reset</button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

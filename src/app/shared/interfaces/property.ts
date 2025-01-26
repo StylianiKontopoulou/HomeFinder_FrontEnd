@@ -1,6 +1,7 @@
 import { EnergyClass } from '../enums/energyClass';
 import { PropertyCondition } from '../enums/propertyCondition';
 import { PropertyType } from '../enums/propertyType';
+import { PropertyUse } from '../enums/propertyUse';
 import { Area } from './area';
 import { User } from './user';
 
@@ -20,4 +21,5 @@ export interface Property {
   area: Area;
   user: User;
   image: string;
+  propertyUse: PropertyUse;
 }
