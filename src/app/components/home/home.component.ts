@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { PropertyCardComponent } from "../property-card/property-card.component";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-  ],
+    PropertyCardComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

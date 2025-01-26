@@ -1,8 +1,10 @@
 .footer-toolbar {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background-color: #c4c4cd;
+  position:relative;
+  bottom:0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #c4c4cd;
   }
   

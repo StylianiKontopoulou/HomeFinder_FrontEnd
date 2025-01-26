@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { PropertyCardComponent } from '../property-card/property-card.component';
 
 @Component({
   selector: 'app-my-properties',
@@ -17,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
+    PropertyCardComponent,
   ],
   templateUrl: './my-properties.component.html',
   styleUrl: './my-properties.component.css',
@@ -40,26 +42,13 @@ export class MyPropertiesComponent implements OnInit {
   propertyId: number = 0;
   selectedPropertyId: number | null = null;
   ngOnInit(): void {
-    // this.userForm.patchValue({
-    //   address: this.UserService.user().address,
-    //   email: this.UserService.user().email,
-    // });
-
-    // if (this.propertyForm) {
-    //   this.propertyForm.patchValue({
-    //     userId: this.UserService.user().id,
-    //   });
-    // }
-
     // // Get all user's properties
-    console.log('here');
     this.service.getAllMyProperties(this.UserService.user().id).subscribe({
       next: (response) => {
         this.properties = response;
       },
 
       error: (err) => console.error(`Error fetching users: ${err}`),
-      //complete: () => console.log('Data Fetch completed...')
     });
   }
 }
