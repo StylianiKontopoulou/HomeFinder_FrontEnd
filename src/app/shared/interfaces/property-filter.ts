@@ -5,9 +5,9 @@ import { Area } from "./area";
 export interface PropertyFilter {
     minPrice?: number;
     maxPrice?: number;
-    condition?: PropertyCondition;
-    propertyType?: PropertyType;
-    area?: Area;
+    conditions?: PropertyCondition[];
+    propertyTypes?: PropertyType[];
+    areas?: Area[];
     minSquareMeters?: number;
     maxSquareMeters?: number;
   }

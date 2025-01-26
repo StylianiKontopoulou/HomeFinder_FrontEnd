@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { PropertyCardComponent } from "../property-card/property-card.component";
+import { PropertyCardComponent } from '../property-card/property-card.component';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +20,8 @@ import { PropertyCardComponent } from "../property-card/property-card.component"
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
-    PropertyCardComponent
-],
+    PropertyCardComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -57,12 +57,18 @@ export class HomeComponent implements OnInit {
   onFiltersChanged(filters: PropertyFilter) {
     this.filteredProperties = this.properties.filter((property) => {
       return (
-        (!filters.area || property.area.id === filters.area.id) &&
+        (!filters.areas ||
+          !filters.areas.length ||
+          filters.areas.find((x) => x.id === property.area.id) != null) &&
         (!filters.minPrice || property.price >= filters.minPrice) &&
         (!filters.maxPrice || property.price <= filters.maxPrice) &&
-        (!filters.condition || property.condition === filters.condition) &&
-        (!filters.propertyType ||
-          property.propertyType === filters.propertyType) &&
+        (!filters.conditions ||
+          !filters.conditions.length ||
+          filters.conditions.find((x) => x === property.condition) != null) &&
+        (!filters.propertyTypes ||
+          !filters.propertyTypes.length ||
+          filters.propertyTypes.find((x) => x === property.propertyType) !=
+            null) &&
         (!filters.minSquareMeters ||
           property.squareMeters >= filters.minSquareMeters) &&
         (!filters.maxSquareMeters ||

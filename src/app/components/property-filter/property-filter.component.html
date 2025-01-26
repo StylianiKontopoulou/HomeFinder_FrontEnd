@@ -21,7 +21,7 @@
       <!-- Property Condition -->
       <mat-form-field>
         <mat-label>Condition</mat-label>
-        <mat-select [(ngModel)]="filters.condition">
+        <mat-select [(ngModel)]="filters.conditions" multiple>
           @for (condition of propertyConditions; track condition) {
             <mat-option [value]="condition.value">
               {{ condition.label }}
@@ -33,7 +33,7 @@
       <!-- Property Type -->
       <mat-form-field>
         <mat-label>Type</mat-label>
-        <mat-select [(ngModel)]="filters.propertyType">
+        <mat-select [(ngModel)]="filters.propertyTypes" multiple>
           @for (type of propertyTypes; track type) {
             <mat-option [value]="type.value">
               {{ type.label }}
@@ -45,7 +45,7 @@
       <!-- Property Type -->
       <mat-form-field>
         <mat-label>Area</mat-label>
-        <mat-select [(ngModel)]="filters.area">
+        <mat-select [(ngModel)]="filters.areas" multiple>
           @for (area of areas; track area) {
             <mat-option [value]="area">
               {{ area.name }}
