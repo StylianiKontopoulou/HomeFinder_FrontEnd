@@ -13,7 +13,11 @@ import { Property } from 'src/app/shared/interfaces/property';
 })
 export class PropertyCardComponent {
   @Input() property!: Property;
-
+  getPricePerSquareMeter(): string {
+    return this.property.squareMeters === 0
+      ? '0'
+      : (this.property.price / this.property.squareMeters).toFixed(2);
+  }
   getPropertyTypeLabel(): string {
     return EnumHelpers.getLabelForPropertyType(this.property.propertyType);
   }

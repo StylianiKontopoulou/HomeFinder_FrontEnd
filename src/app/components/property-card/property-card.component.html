@@ -4,7 +4,6 @@
   <mat-card-header>
     <mat-card-title>{{ property.title }}</mat-card-title>
   </mat-card-header>
-  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
   <mat-card-content>
     @if (property.image && property.image.length > 0) {
       <img
@@ -17,6 +16,16 @@
         width="100%"
         height="300" />
     }
+    <p>
+      <strong>
+        {{ getPropertyTypeLabel() }}, {{ property.squareMeters }} m²
+      </strong>
+    </p>
+    <p>
+      <strong>
+        {{ property.price }}€ | {{ getPricePerSquareMeter() }} €/m²
+      </strong>
+    </p>
     <p>
       {{ property.description }}
     </p>
@@ -53,10 +62,7 @@
         {{ property.bathrooms }}
       </span>
     </div>
-    <p>
-      <strong>Property Type:</strong>
-      {{ getPropertyTypeLabel() }}
-    </p>
+
     <p>
       <strong>Energy Class:</strong>
       {{ getEnergyClassLabel() }}
@@ -66,18 +72,20 @@
       {{ getPropertyConditionLabel() }}
     </p>
   </mat-card-content>
-  <mat-card-actions>
-    <button
-      mat-button
-      color="warn"
-      routerLink="">
-      DELETE
-    </button>
-    <button
-      mat-button
-      color="primary"
-      routerLink="">
-      EDIT
-    </button>
-  </mat-card-actions>
+  @if (userOwned){
+    <mat-card-actions>
+      <button
+        mat-button
+        color="warn"
+        routerLink="">
+        DELETE
+      </button>
+      <button
+        mat-button
+        color="primary"
+        routerLink="">
+        EDIT
+      </button>
+    </mat-card-actions>
+  }
 </mat-card>
