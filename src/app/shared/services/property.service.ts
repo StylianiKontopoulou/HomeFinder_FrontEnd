@@ -20,6 +20,11 @@ export class PropertyService {
     return this.http.post(`${API_URL}`, property, { headers });
   }
 
+  updateProperty(property: Property) {
+    const headers = AuthHeaders.createAuthorizationHeader();
+    return this.http.put(`${API_URL}/${property.id}`, property, { headers });
+  }
+
   deleteProperty(id: number) {
     const headers = AuthHeaders.createAuthorizationHeader();
     return this.http.delete(`${API_URL}/${id}`, { headers });
@@ -41,17 +46,24 @@ export class PropertyService {
     });
   }
 
+  // Κλήση για λήψη ενός property με Basic Auth
+  getProperty(propertyId: number): Observable<any> {
+    const headers = AuthHeaders.createAuthorizationHeader();
+    const url = `${API_URL}/${propertyId}`;
+    return this.http.get(url, { headers });
+  }
+
   // Κλήση για λήψη όλων των properties του χρήστη με Basic Auth
   getAllMyProperties(userId: any): Observable<any> {
     const headers = AuthHeaders.createAuthorizationHeader();
-    const url = `${environment.apiURL}/properties?userId=${userId}`;
+    const url = `${API_URL}?userId=${userId}`;
     return this.http.get(url, { headers });
   }
 
   // Κλήση για λήψη όλων των properties με Basic Auth
   getAllProperties(): Observable<any> {
     const headers = AuthHeaders.createAuthorizationHeader();
-    const url = `${environment.apiURL}/properties`;
+    const url = `${API_URL}`;
     return this.http.get(url, { headers });
   }
 }

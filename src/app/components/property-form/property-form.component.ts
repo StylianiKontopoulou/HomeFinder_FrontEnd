@@ -21,6 +21,7 @@ import { PropertyCondition } from 'src/app/shared/enums/propertyCondition';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-property-form',
@@ -40,9 +41,10 @@ import EnumHelpers from 'src/app/shared/helpers/enumHelpers';
   styleUrl: './property-form.component.css',
 })
 export class PropertyFormComponent implements OnInit {
+  isEditMode: boolean = false;
+  route = inject(ActivatedRoute);
   propertyService = inject(PropertyService);
   areaService = inject(AreaService);
-
   propertyConditions: { value: PropertyCondition; label: string }[];
   energyClasses: { value: EnergyClass; label: string }[];
   propertyTypes: { value: PropertyType; label: string }[];
@@ -50,6 +52,7 @@ export class PropertyFormComponent implements OnInit {
   imageError: string | null = null;
 
   form = new FormGroup({
+    id: new FormControl(null),
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     yearOfConstruction: new FormControl('', Validators.required),
@@ -61,7 +64,7 @@ export class PropertyFormComponent implements OnInit {
     condition: new FormControl('', Validators.required),
     energyClass: new FormControl('', Validators.required),
     propertyType: new FormControl('', Validators.required),
-    area: new FormControl('', Validators.required),
+    areaId: new FormControl('', Validators.required),
     image: new FormControl(''),
   });
 
@@ -95,6 +98,35 @@ export class PropertyFormComponent implements OnInit {
         console.log('Error adding property', message);
       },
     });
+
+    let propertyId = this.route.snapshot.paramMap.get('id');
+    if (!!propertyId) {
+      this.isEditMode = true;
+      this.propertyService.getProperty(+propertyId).subscribe({
+        next: (response) => {
+          this.form.patchValue({
+            id: response.id.toString(),
+            title: response.title,
+            description: response.description,
+            yearOfConstruction: response.yearOfConstruction.toString(),
+            price: response.price.toString(),
+            squareMeters: response.squareMeters.toString(),
+            floor: response.floor.toString(),
+            bathrooms: response.bathrooms.toString(),
+            bedrooms: response.bedrooms.toString(),
+            condition: response.condition.toString(),
+            energyClass: response.energyClass.toString(),
+            propertyType: response.propertyType.toString(),
+            areaId: response.area.id,
+            image: response.image?.toString(),
+          });
+        },
+        error: (response) => {
+          const message = response.error.msg;
+          console.log('Error getting property', message);
+        },
+      });
+    }
   }
 
   onImageUpload(event: Event): void {
@@ -119,16 +151,38 @@ export class PropertyFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const property = this.form.value as unknown as Property;
-    console.log(property);
-    this.propertyService.addProperty(property).subscribe({
-      next: (response) => {
-        console.log('Property added', response);
-      },
-      error: (response) => {
-        const message = response.error.msg;
-        console.log('Error adding property', message);
-      },
-    });
+    if (this.form.valid) {
+      const formValue = this.form.value;
+      let area = this.areas.find((x) => x.id === +formValue.areaId);
+      delete formValue.areaId;
+      const property = {
+        ...(this.form.value as unknown as Property),
+        area: area,
+      };
+      // Edit mode
+      if (this.isEditMode) {
+        this.propertyService.updateProperty(property).subscribe({
+          next: (response) => {
+            console.log('Property updated', response);
+          },
+          error: (response) => {
+            const message = response.error.msg;
+            console.log('Error adding property', message);
+          },
+        });
+      }
+      // Add new property
+      else {
+        this.propertyService.addProperty(property).subscribe({
+          next: (response) => {
+            console.log('Property added', response);
+          },
+          error: (response) => {
+            const message = response.error.msg;
+            console.log('Error adding property', message);
+          },
+        });
+      }
+    }
   }
 }

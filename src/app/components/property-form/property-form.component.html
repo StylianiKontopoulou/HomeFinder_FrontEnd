@@ -1,6 +1,10 @@
-<h4>Add New Property</h4>
-
+<h4>
+  {{ isEditMode ? "Edit Property" : "Add New Property" }}
+</h4>
 <form [formGroup]="form">
+  <input
+    type="hidden"
+    formControlName="id" />
   <mat-grid-list
     cols="4"
     rowHeight="75px"
@@ -18,7 +22,9 @@
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="4" rowspan="2">
+    <mat-grid-tile
+      colspan="4"
+      rowspan="2">
       <mat-form-field class="full-width">
         <mat-label>Description</mat-label>
         <textarea
@@ -166,12 +172,12 @@
     <mat-grid-tile>
       <mat-form-field class="full-width">
         <mat-label>Area</mat-label>
-        <mat-select formControlName="area">
+        <mat-select formControlName="areaId">
           @for (area of areas; track area) {
-            <mat-option [value]="area">{{ area.name }}</mat-option>
+            <mat-option [value]="area.id">{{ area.name }}</mat-option>
           }
         </mat-select>
-        @if (form.get("area").invalid && form.get("area").touched) {
+        @if (form.get("areaId").invalid && form.get("areaId").touched) {
           <mat-error>Area is required</mat-error>
         }
       </mat-form-field>
@@ -214,6 +220,6 @@
     color="primary"
     [disabled]="form.invalid"
     (click)="onSubmit()">
-    Add Property
+    {{ isEditMode ? "Update Property" : "Add Property" }}
   </button>
 </form>

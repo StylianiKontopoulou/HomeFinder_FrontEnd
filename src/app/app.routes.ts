@@ -41,7 +41,7 @@ export const routes: Routes = [
   },
   {
     path: 'my-properties/:id',
-    component: PropertyDetailsComponent,
+    component: PropertyFormComponent,
   },
   {
     path: '',
