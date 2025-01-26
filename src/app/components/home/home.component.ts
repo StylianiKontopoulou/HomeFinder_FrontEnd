@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { Property } from 'src/app/shared/interfaces/property';
 import { PropertyService } from 'src/app/shared/services/property.service';
 import { PropertyFilter } from 'src/app/shared/interfaces/property-filter';
@@ -14,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-home',
   imports: [
-    SearchBarComponent,
     PropertyFilterComponent,
     CommonModule,
     MatIconModule,
@@ -29,23 +27,18 @@ export class HomeComponent implements OnInit {
   propertyService = inject(PropertyService);
   isLoggedIn: boolean = false;
   properties: Property[] = [];
-  filteredProperties: Property[] = [...this.properties];
-
-  // searchCriteria = {
-  //   location: '',
-  //   type: 'rent',
-  //   maxPrice: null,
-  // };
+  filteredProperties: Property[] = [];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     // Έλεγχος αν ο χρήστης είναι συνδεδεμένος
-    this.isLoggedIn = !!localStorage.getItem('userToken');
+    this.isLoggedIn = !!localStorage.getItem('authorizationHeader');
 
     this.propertyService.getAllProperties().subscribe({
       next: (response) => {
         this.properties = response;
+        this.filteredProperties = response;
       },
       error: (response) => {
         console.log('Error retrieving properties', response);
