@@ -8,6 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/shared/interfaces/login-form';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -24,6 +25,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LoginFormComponent {
   userService = inject(UserService);
+  router = inject(Router);
 
   registrationStatus: { success: boolean; message: string } = {
     success: false,
@@ -39,36 +41,22 @@ export class LoginFormComponent {
   });
 
   onSubmit(value: any) {
-    console.log(value);
-    // this.userService.allUsers().subscribe({
-    //   next: (response) => {
-    //     console.log('allUsers response', response.msg);
-    //   },
-    //   error: (response) => {
-    //     const message = response.error.msg;
-    //     console.log('Error', message);
-    //   },
-    // });
-
     const user = this.form.value as LoginForm;
     delete user['confirmPassword'];
 
     this.userService.loginUser(user).subscribe({
       next: (response: any) => {
-        console.log('User registered', response);
         localStorage.setItem('user', JSON.stringify(response));
         localStorage.setItem(
           'authorizationHeader',
           btoa(`${user.userName}:${user.password}`),
         );
-        //localStorage.setItem('userId', response.id);
-        //localStorage.setItem('userType', response.userType);
         this.userService.user.set(response);
-        this.registrationStatus = { success: true, message: response.msg };
+        this.router.navigate(['my-properties']);
       },
       error: (response) => {
         const message = response.error.msg;
-        console.log('Error registering user', message);
+        console.log('Login error ', message);
         this.registrationStatus = { success: false, message };
       },
     });
