@@ -22,4 +22,5 @@ export interface Property {
   user: User;
   image: string;
   propertyUse: PropertyUse;
+  createdAt: Date; 
 }

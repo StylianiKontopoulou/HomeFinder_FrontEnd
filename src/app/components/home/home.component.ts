@@ -10,13 +10,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { PropertyCardComponent } from '../property-card/property-card.component';
+import { FormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-home',
   imports: [
     PropertyFilterComponent,
     CommonModule,
+    FormsModule,
     MatIconModule,
+    MatSelectModule,
+    MatOptionModule,
     MatCardModule,
     MatButtonModule,
     MatGridListModule,
@@ -28,6 +34,7 @@ import { PropertyCardComponent } from '../property-card/property-card.component'
 export class HomeComponent implements OnInit {
   propertyService = inject(PropertyService);
   isLoggedIn: boolean = false;
+  sortOrder: string = 'desc';
   properties: Property[] = [];
   filteredProperties: Property[] = [];
 
@@ -40,7 +47,7 @@ export class HomeComponent implements OnInit {
     this.propertyService.getAllProperties().subscribe({
       next: (response) => {
         this.properties = response;
-        this.filteredProperties = response;
+        this.filteredProperties = this.getSortedProperties(response);
       },
       error: (response) => {
         console.log('Error retrieving properties', response);
@@ -55,7 +62,7 @@ export class HomeComponent implements OnInit {
   }
 
   onFiltersChanged(filters: PropertyFilter) {
-    this.filteredProperties = this.properties.filter((property) => {
+    let properties = this.properties.filter((property) => {
       return (
         (!filters.areas ||
           !filters.areas.length ||
@@ -75,9 +82,21 @@ export class HomeComponent implements OnInit {
           property.squareMeters <= filters.maxSquareMeters)
       );
     });
+
+    this.filteredProperties = this.getSortedProperties(properties);
   }
-  // searchProperties(): void {
-  //   console.log('Αναζήτηση για:', this.searchCriteria);
-  //   // Καλέστε το backend API για αναζήτηση
-  // }
+
+  onSortChange(order: string): void {
+    this.filteredProperties = this.getSortedProperties([
+      ...this.filteredProperties,
+    ]);
+  }
+
+  getSortedProperties(properties: Property[]): Property[] {
+    return properties.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+  }
 }

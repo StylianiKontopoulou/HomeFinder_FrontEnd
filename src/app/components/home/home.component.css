@@ -1,6 +1,12 @@
 
-.property-info-row{
+.sorting-container {
     display: flex;
-    gap: 30px;
     align-items: center;
-}
+    margin-bottom: 1rem;
+  }
+  
+  .sorting-container label {
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
+  
