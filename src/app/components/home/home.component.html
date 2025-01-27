@@ -16,14 +16,7 @@
 
   <!-- Main Content -->
   <div class="container main-content">
-    <div class="my-3 d-flex gap-3 align-items-center">
-      <!-- Filter Icon -->
-      <mat-icon
-        class="material-icons-outlined"
-        (click)="openFilterDrawer()"
-        aria-hidden="false"
-        aria-label="Filter"
-        fontIcon="filter_list"></mat-icon>
+    <div class="my-3 d-flex justify-content-between align-items-center">
 
       <mat-form-field appearance="outline">
         <mat-label>Sort by</mat-label>
@@ -34,6 +27,14 @@
           <mat-option value="asc">Oldest</mat-option>
         </mat-select>
       </mat-form-field>
+            <!-- Filter Icon -->
+      <mat-icon
+        class="material-icons-outlined"
+        (click)="openFilterDrawer()"
+        aria-hidden="false"
+        aria-label="Filter"
+        fontIcon="filter_list"></mat-icon>
+
     </div>
 
     @if (filteredProperties.length) {
