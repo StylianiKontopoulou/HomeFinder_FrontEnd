@@ -9,42 +9,12 @@
     </div>
   </div>
 
-  <div *ngIf="properties && properties.length > 0">
-    <!-- <div
+  <div
+    class="row"
+    *ngIf="properties && properties.length > 0">
+    <app-property-card
+      class="col-lg-4 col-md-6 col-xs-12"
       *ngFor="let property of properties"
-      class="col-xs-12 col-md-6 col-lg-4 mb-sm-2">
-      <div class="card h-100">
-        <div class="card-header">
-          <strong>{{ property.title }}</strong>
-        </div>
-        <div class="card-body">
-          <p>
-            {{ property.description }}
-          </p>
-          <p>
-            <strong>Area:</strong>
-            {{ property.area.name }}
-          </p>
-          <p>
-            <strong>Year of Construction:</strong>
-            {{ property.yearOfConstruction }}
-          </p>
-          <p>
-            <strong>Property Type:</strong>
-            {{ property.propertyType }}
-          </p>
-        </div>
-      </div>
-    </div> -->
-    <mat-grid-list
-      cols="3"
-      rowHeight="1:2">
-      <mat-grid-tile
-        *ngFor="let property of properties"
-        colspan="1"
-        rowspan="1">
-        <app-property-card [property]="property"></app-property-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+      [property]="property"></app-property-card>
   </div>
 </div>

@@ -4,7 +4,6 @@ import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/shared/services/property.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,7 +16,6 @@ import { PropertyCardComponent } from '../property-card/property-card.component'
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule,
     PropertyCardComponent,
   ],
   templateUrl: './my-properties.component.html',
