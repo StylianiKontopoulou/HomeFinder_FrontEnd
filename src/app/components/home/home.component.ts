@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Property } from 'src/app/shared/interfaces/property';
 import { PropertyService } from 'src/app/shared/services/property.service';
@@ -9,6 +9,8 @@ import { PropertyCardComponent } from '../property-card/property-card.component'
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     FormsModule,
     MatSelectModule,
+    MatIconModule,
+    MatSidenavModule,
     MatOptionModule,
     PropertyCardComponent,
   ],
@@ -24,6 +28,9 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild('filterDrawer') filterDrawer!: MatDrawer;
+
   propertyService = inject(PropertyService);
   isLoggedIn: boolean = false;
   sortOrder: string = 'desc';
@@ -76,6 +83,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.filteredProperties = this.getSortedProperties(properties);
+    this.filterDrawer.close();
   }
 
   onSortChange(order: string): void {
@@ -91,4 +99,13 @@ export class HomeComponent implements OnInit {
       return this.sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
   }
+
+  openFilterDrawer() {
+    this.filterDrawer.open();
+  }
+
+  closeFilterDrawer() {
+    this.filterDrawer.close();
+  }
+
 }

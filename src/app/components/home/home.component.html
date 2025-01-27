@@ -1,21 +1,50 @@
-<app-property-filter
-  (filtersChanged)="onFiltersChanged($event)"></app-property-filter>
-<div class="sorting-container">
-  <mat-form-field appearance="outline">
-    <mat-label>Sort by</mat-label>
-    <mat-select [(ngModel)]="sortOrder" (selectionChange)="onSortChange($event.value)">
-      <mat-option value="desc">Newest</mat-option>
-      <mat-option value="asc">Oldest</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-@if (filteredProperties.length) {
-  <div class="row">
-    <app-property-card
-      class="col-lg-4 col-md-6 col-xs-12"
-      *ngFor="let filteredProperty of filteredProperties"
-      [property]="filteredProperty"></app-property-card>
+<!-- Side Drawer -->
+<mat-drawer-container class="drawer-container">
+  <mat-drawer
+    #filterDrawer
+    mode="over"
+    position="end">
+    <div class="drawer-header">
+      <h4>
+        <mat-icon class="filter-icon">filter_list</mat-icon>
+        Filter Properties
+      </h4>
+    </div>
+    <app-property-filter
+      (filtersChanged)="onFiltersChanged($event)"></app-property-filter>
+  </mat-drawer>
+
+  <!-- Main Content -->
+  <div class="container main-content">
+    <div class="my-3 d-flex gap-3 align-items-center">
+      <!-- Filter Icon -->
+      <mat-icon
+        class="material-icons-outlined"
+        (click)="openFilterDrawer()"
+        aria-hidden="false"
+        aria-label="Filter"
+        fontIcon="filter_list"></mat-icon>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Sort by</mat-label>
+        <mat-select
+          [(ngModel)]="sortOrder"
+          (selectionChange)="onSortChange($event.value)">
+          <mat-option value="desc">Newest</mat-option>
+          <mat-option value="asc">Oldest</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @if (filteredProperties.length) {
+      <div class="row">
+        <app-property-card
+          class="col-lg-4 col-md-6 col-xs-12"
+          *ngFor="let filteredProperty of filteredProperties"
+          [property]="filteredProperty"></app-property-card>
+      </div>
+    } @else {
+      No properties match your filters.
+    }
   </div>
-} @else {
-  No properties match your filters.
-}
+</mat-drawer-container>
