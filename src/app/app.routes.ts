@@ -7,7 +7,6 @@ import { FileNotFoundComponent } from './components/file-not-found/file-not-foun
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
-import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 
 export const routes: Routes = [
   {
