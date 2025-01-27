@@ -44,6 +44,10 @@ export const routes: Routes = [
     component: PropertyFormComponent,
   },
   {
+    path: 'profile/:id',
+    component: SignupComponent,
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

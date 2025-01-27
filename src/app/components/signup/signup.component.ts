@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,25 +8,27 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginForm } from 'src/app/shared/interfaces/login-form';
+import { UpdateUser } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-signup',
-  imports: [ ReactiveFormsModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   userService = inject(UserService);
-
-  registrationStatus: { success: boolean; message: string } = {
-    success: false,
-    message: 'Not attempted yet',
-  };
+  isEditMode: boolean = false;
+  router = inject(Router);
+  route = inject(ActivatedRoute);
 
   form = new FormGroup(
     {
@@ -38,7 +40,9 @@ export class SignupComponent {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{4,20}$/)
+        Validators.pattern(
+          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{4,20}$/,
+        ),
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
@@ -47,6 +51,28 @@ export class SignupComponent {
     },
     this.passwordConfirmValidator,
   );
+  ngOnInit(): void {
+    let userId = this.route.snapshot.paramMap.get('id');
+    if (!!userId) {
+      this.isEditMode = true;
+      this.userService.getUser(+userId).subscribe({
+        next: (response) => {
+          this.form.patchValue({
+            firstName: response.firstName.toString(),
+            lastName: response.lastName.toString(),
+            userName: response.userName,
+            email: response.email,
+            password: response.password.toString(),
+            phoneNumber: response.phoneNumber.toString(),
+          });
+        },
+        error: (response) => {
+          const message = response.error.msg;
+          console.log('Error getting user', message);
+        },
+      });
+    }
+  }
 
   passwordConfirmValidator(form: FormGroup) {
     if (form.get('password').value !== form.get('confirmPassword').value) {
@@ -57,30 +83,45 @@ export class SignupComponent {
   }
 
   onSubmit(value: any) {
-    console.log(value);
+    if (this.form.valid) {
+      let userId = this.route.snapshot.paramMap.get('id');
+      const updateUser = {
+        ...(this.form.value as unknown as UpdateUser),
+        id: +userId,
+      };
 
-    const user = this.form.value as LoginForm;
-    delete user['confirmPassword'];
+      delete updateUser.confirmPassword;
 
-    this.userService.registerUser(user).subscribe({
-      next: (response) => {
-        console.log('User registered', response.msg);
-        this.registrationStatus = { success: true, message: response.msg };
-      },
-      error: (response) => {
-        const message = response.error.msg;
-        console.log('Error registering user', message);
-        this.registrationStatus = { success: false, message };
-      },
-    });
+      // Edit user's profile
+      if (this.isEditMode) {
+        this.userService.updateUser(updateUser).subscribe({
+          next: (response) => {
+            localStorage.setItem('user', JSON.stringify(updateUser));
+            localStorage.setItem(
+              'authorizationHeader',
+              btoa(`${updateUser.userName}:${updateUser.password}`),
+            );
+            this.userService.user.set(updateUser);
+
+            this.router.navigate(['home']);
+          },
+          error: (response) => {
+            console.log('Error updating the profile of user', response);
+          },
+        });
+      } else {
+        const user = this.form.value as LoginForm;
+        delete user['confirmPassword'];
+
+        this.userService.registerUser(user).subscribe({
+          next: (response) => {
+            this.router.navigate(['login']);
+          },
+          error: (response) => {
+            console.log('Error registering user', response);
+          },
+        });
+      }
+    }
   }
-
-  registerAnotherUser() {
-    this.form.reset();
-    this.registrationStatus = { success: false, message: 'Not attempted yet' };
-  }
-
- 
-    
-  
 }

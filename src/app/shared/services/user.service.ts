@@ -4,9 +4,8 @@ import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form';
 import { retry, catchError, throwError, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { LoggedInUser } from '../interfaces/user';
+import { UpdateUser } from '../interfaces/user';
 import AuthHeaders from '../helpers/authHeaders';
-
 
 const API_URL = `${environment.apiURL}/users`;
 
@@ -20,11 +19,11 @@ export class UserService {
 
   constructor() {
     let storedUser = localStorage.getItem('user');
-    if (storedUser){
+    if (storedUser) {
       this.user.set(JSON.parse(storedUser));
     }
   }
-  
+
   getUser(userId: any): Observable<any> {
     const headers = AuthHeaders.createAuthorizationHeader();
     return this.http.get(`${API_URL}/${userId}`, { headers });
@@ -32,7 +31,19 @@ export class UserService {
 
   registerUser(user: LoginForm) {
     const headers = AuthHeaders.createAuthorizationHeader();
-    return this.http.post<{ msg: string }>(`${API_URL}/register`, user, {headers});
+    return this.http.post<{ msg: string }>(`${API_URL}/register`, user, {
+      headers,
+    });
+  }
+
+  updateUser(updateUser: UpdateUser) {
+    const headers = AuthHeaders.createAuthorizationHeader().set(
+      'Content-Type',
+      'application/json',
+    );
+    return this.http.put(`${API_URL}/${updateUser.id}`, updateUser, {
+      headers,
+    });
   }
 
   logoutUser() {
@@ -42,24 +53,13 @@ export class UserService {
   }
 
   loginUser(data: any) {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    return this.http.post(`${API_URL}/login`, JSON.stringify(data), { headers }).pipe(
-      retry(1),
-      catchError((error) => throwError(() => 'Something is wrong...'))
-    );
-
-    
-    // const headers = this.createAuthorizationHeader();
-    // return this.http.post<{ msg: string }>(`${API_URL}/login`, user, {headers});
+    return this.http
+      .post(`${API_URL}/login`, JSON.stringify(data), { headers })
+      .pipe(
+        retry(1),
+        catchError((error) => throwError(() => 'Something is wrong...')),
+      );
   }
-
-  // ONLY FOR ADMIN
-  // allUsers() {
-  //   const headers = this.createAuthorizationHeader();
-  //   return this.http.get<{ msg: string}>(`${environment.apiURL}/admin/users`, {headers});
-  // }
-
- 
 }

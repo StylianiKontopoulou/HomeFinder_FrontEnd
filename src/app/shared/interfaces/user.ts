@@ -7,6 +7,17 @@ export interface User {
 }
 
 export interface LoggedInUser {
-    fullname: string;
+        fullname: string;
     email: string;
+}
+
+export interface UpdateUser {
+    id: number;
+    firstName: string;
+    lastName: string;
+    userName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    phoneNumber: string;
 }
