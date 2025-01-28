@@ -1,6 +1,22 @@
+/* Make sure the entire page respects the full height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Main container to hold content and footer */
 #page-container {
-    position: relative;
-    min-height: 100vh;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it spans the full viewport height */
+}
+
+/* Content area grows to fill available space */
+#content-wrap {
+  flex: 1; /* Pushes the footer to the bottom */
+}
+
+/* Footer styles */
+app-footer {
+  padding-top: 50px; /* Ensures full width */
+}
