@@ -6,9 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LoginForm } from 'src/app/shared/interfaces/login-form';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -17,6 +18,8 @@ import { UserService } from 'src/app/shared/services/user.service';
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
+    RouterModule,
+    MatCardModule,
     MatInputModule,
     MatButtonModule,
   ],
@@ -26,11 +29,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LoginFormComponent {
   userService = inject(UserService);
   router = inject(Router);
-
-  registrationStatus: { success: boolean; message: string } = {
-    success: false,
-    message: 'Not attempted yet',
-  };
 
   form = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -55,15 +53,9 @@ export class LoginFormComponent {
         this.router.navigate(['my-properties']);
       },
       error: (response) => {
-        const message = response.error.msg;
-        console.log('Login error ', message);
-        this.registrationStatus = { success: false, message };
+        console.log('Login error ', response);
       },
     });
   }
 
-  registerAnotherUser() {
-    this.form.reset();
-    this.registrationStatus = { success: false, message: 'Not attempted yet' };
-  }
 }

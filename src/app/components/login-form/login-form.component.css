@@ -1,0 +1,26 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Full viewport height */
+    background-color: transparent;
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px; /* Adjust the width as needed */
+    padding: 20px;
+  }
+  
+  form {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px; /* Space between form fields */
+  }
+  
+  button {
+    width: 100%;
+  }
