@@ -1,244 +1,308 @@
-<h4>
-  {{ isEditMode ? "Edit Property" : "Add New Property" }}
-</h4>
-<form [formGroup]="form">
-  <input
-    type="hidden"
-    formControlName="id" />
-  <mat-grid-list
-    cols="4"
-    rowHeight="75px"
-    gutterSize="5px">
-    <mat-grid-tile colspan="2">
-      <mat-form-field class="full-width">
-        <mat-label>Title</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="title" />
-        @if (form.get("title").invalid && form.get("title").touched) {
-          <mat-error>Title is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg p-4">
+        <h4 class="text-center mb-4">
+          {{ isEditMode ? "Edit Property" : "Add New Property" }}
+        </h4>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Property Use</mat-label>
-        <mat-select formControlName="propertyUse">
-          @for (
-            propertyUse of propertyUses;
-            track propertyUse
-          ) {
-            <mat-option [value]="propertyUse.value">
-              {{ propertyUse.label }}
-            </mat-option>
-          }
-        </mat-select>
-        @if (form.get("propertyUse").invalid && form.get("propertyUse").touched) {
-          <mat-error>Property use is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+        <form
+          [formGroup]="form"
+          class="container">
+          <input
+            type="hidden"
+            formControlName="id" />
 
-    <mat-grid-tile
-      colspan="4"
-      rowspan="2">
-      <mat-form-field class="full-width">
-        <mat-label>Description</mat-label>
-        <textarea
-          matInput
-          formControlName="description"></textarea>
-        @if (
-          form.get("description").invalid && form.get("description").touched
-        ) {
-          <mat-error>Description is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+          <div class="row g-2">
+            <!-- Title -->
+            <div class="col-md-7">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Title</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="title" />
+                @if (form.get("title").invalid && form.get("title").touched) {
+                  <mat-error>Title is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Year Of Construction</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="yearOfConstruction" />
-        @if (
-          form.get("yearOfConstruction").invalid &&
-          form.get("yearOfConstruction").touched
-        ) {
-          <mat-error>Year of construction is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Price</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="price" />
-        @if (form.get("price").invalid && form.get("price").touched) {
-          <mat-error>Price is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Square Meters</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="squareMeters" />
-        @if (
-          form.get("squareMeters").invalid && form.get("squareMeters").touched
-        ) {
-          <mat-error>Square meter is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Floor</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="floor" />
-        @if (form.get("floor").invalid && form.get("floor").touched) {
-          <mat-error>Floor is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Bathrooms</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="bathrooms" />
-        @if (form.get("bathrooms").invalid && form.get("bathrooms").touched) {
-          <mat-error>Bathrooms are required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Bedrooms</mat-label>
-        <input
-          matInput
-          type="number"
-          formControlName="bedrooms" />
-        @if (form.get("bedrooms").invalid && form.get("bedrooms").touched) {
-          <mat-error>Bedrooms are required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+            <!-- Property Use -->
+            <div class="col-md-5">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Property Use</mat-label>
+                <mat-select formControlName="propertyUse">
+                  @for (propertyUse of propertyUses; track propertyUse) {
+                    <mat-option [value]="propertyUse.value">
+                      {{ propertyUse.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if (
+                  form.get("propertyUse").invalid &&
+                  form.get("propertyUse").touched
+                ) {
+                  <mat-error>Property use is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Property Condition</mat-label>
-        <mat-select formControlName="condition">
-          @for (
-            propertyCondition of propertyConditions;
-            track propertyCondition
-          ) {
-            <mat-option [value]="propertyCondition.value">
-              {{ propertyCondition.label }}
-            </mat-option>
-          }
-        </mat-select>
-        @if (form.get("condition").invalid && form.get("condition").touched) {
-          <mat-error>Property condition is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+            <!-- Description -->
+            <div class="col-12">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Description</mat-label>
+                <textarea
+                  matInput
+                  formControlName="description"></textarea>
+                @if (
+                  form.get("description").invalid &&
+                  form.get("description").touched
+                ) {
+                  <mat-error>Description is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Energy Class</mat-label>
-        <mat-select formControlName="energyClass">
-          @for (energyClass of energyClasses; track energyClass) {
-            <mat-option [value]="energyClass.value">
-              {{ energyClass.label }}
-            </mat-option>
-          }
-        </mat-select>
-        @if (
-          form.get("energyClass").invalid && form.get("energyClass").touched
-        ) {
-          <mat-error>Energy class is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+            <!-- Year of Construction -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Year Of Construction</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="yearOfConstruction" />
+                @if (
+                  form.get("yearOfConstruction").invalid &&
+                  form.get("yearOfConstruction").touched
+                ) {
+                  <mat-error>Year of construction is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Property Type</mat-label>
-        <mat-select formControlName="propertyType">
-          @for (type of propertyTypes; track type) {
-            <mat-option [value]="type.value">{{ type.label }}</mat-option>
-          }
-        </mat-select>
-        @if (
-          form.get("propertyType").invalid && form.get("propertyType").touched
-        ) {
-          <mat-error>Property type is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
+            <!-- Square Meters -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Square Meters</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="squareMeters" />
+                @if (
+                  form.get("squareMeters").invalid &&
+                  form.get("squareMeters").touched
+                ) {
+                  <mat-error>Square meter is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <mat-label>Area</mat-label>
-        <mat-select formControlName="areaId">
-          @for (area of areas; track area) {
-            <mat-option [value]="area.id">{{ area.name }}</mat-option>
-          }
-        </mat-select>
-        @if (form.get("areaId").invalid && form.get("areaId").touched) {
-          <mat-error>Area is required</mat-error>
-        }
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <div class="file-container">
-    <div class="file-input-container">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="fileInput.click()">
-        Upload Image
-      </button>
-      <input
-        #fileInput
-        type="file"
-        accept="image/*"
-        hidden
-        (change)="onImageUpload($event)" />
-      <span
-        *ngIf="form.get('image').value"
-        class="file-name">
-        Image selected
-      </span>
-      <mat-error *ngIf="imageError">{{ imageError }}</mat-error>
-    </div>
+            <!-- Additional Fields -->
+            
+            <!-- Price -->
+            <div class="col-md-3">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="price" />
+                @if (form.get("price").invalid && form.get("price").touched) {
+                  <mat-error>Price is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
 
-    <div
-      *ngIf="form.get('image').value"
-      class="image-preview">
-      <h5>Image Preview:</h5>
-      <img
-        [src]="form.get('image').value"
-        alt="Property Image"
-        style="max-width: 100%; height: auto" />
+            <div class="col-md-3">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Floor</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="floor" />
+                @if (form.get("floor").invalid && form.get("floor").touched) {
+                  <mat-error>Floor is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Bathrooms</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="bathrooms" />
+                @if (
+                  form.get("bathrooms").invalid && form.get("bathrooms").touched
+                ) {
+                  <mat-error>Bathrooms are required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-3">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Bedrooms</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="bedrooms" />
+                @if (
+                  form.get("bedrooms").invalid && form.get("bedrooms").touched
+                ) {
+                  <mat-error>Bedrooms are required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Property Condition -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Property Condition</mat-label>
+                <mat-select formControlName="condition">
+                  @for (
+                    propertyCondition of propertyConditions;
+                    track propertyCondition
+                  ) {
+                    <mat-option [value]="propertyCondition.value">
+                      {{ propertyCondition.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if (
+                  form.get("condition").invalid && form.get("condition").touched
+                ) {
+                  <mat-error>Property condition is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Energy Class -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Energy Class</mat-label>
+                <mat-select formControlName="energyClass">
+                  @for (energyClass of energyClasses; track energyClass) {
+                    <mat-option [value]="energyClass.value">
+                      {{ energyClass.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if (
+                  form.get("energyClass").invalid &&
+                  form.get("energyClass").touched
+                ) {
+                  <mat-error>Energy class is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Property Type -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Property Type</mat-label>
+                <mat-select formControlName="propertyType">
+                  @for (type of propertyTypes; track type) {
+                    <mat-option [value]="type.value">
+                      {{ type.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if (
+                  form.get("propertyType").invalid &&
+                  form.get("propertyType").touched
+                ) {
+                  <mat-error>Property type is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <!-- Area -->
+            <div class="col-md-6">
+              <mat-form-field
+                appearance="outline"
+                class="w-100">
+                <mat-label>Area</mat-label>
+                <mat-select formControlName="areaId">
+                  @for (area of areas; track area) {
+                    <mat-option [value]="area.id">{{ area.name }}</mat-option>
+                  }
+                </mat-select>
+                @if (form.get("areaId").invalid && form.get("areaId").touched) {
+                  <mat-error>Area is required</mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Image Upload -->
+          <div class="my-4">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()">
+              Upload Image
+            </button>
+            <input
+              #fileInput
+              type="file"
+              accept="image/*"
+              hidden
+              (change)="onImageUpload($event)" />
+            <span
+              *ngIf="form.get('image').value"
+              class="file-name">
+              Image selected
+            </span>
+            <mat-error *ngIf="imageError">{{ imageError }}</mat-error>
+
+            <div
+              *ngIf="form.get('image').value"
+              class="image-preview mt-3">
+              <h5>Image Preview:</h5>
+              <img
+                [src]="form.get('image').value"
+                alt="Property Image"
+                style="max-width: 100%; height: auto" />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="form.invalid"
+            (click)="onSubmit()">
+            {{ isEditMode ? "Update Property" : "Add Property" }}
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-  <button
-    mat-flat-button
-    color="primary"
-    [disabled]="form.invalid"
-    (click)="onSubmit()">
-    {{ isEditMode ? "Update Property" : "Add Property" }}
-  </button>
-</form>
+</div>
