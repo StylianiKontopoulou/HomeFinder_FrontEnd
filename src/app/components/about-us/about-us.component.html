@@ -43,23 +43,25 @@
     </p>
   </section>
 
-  <section class="text-center">
-    <h4>Ready to Get Started?</h4>
-    <p>
-      If you're looking for a property or want to list your own, sign up or log
-      in today to get started!
-    </p>
-    <a
-      [routerLink]="['/login']"
-      routerLink="active"
-      class="btn btn-primary">
-      Log In
-    </a>
-    <a
-      [routerLink]="['/signup']"
-      routerLink="active"
-      class="btn btn-secondary ms-3">
-      Sign Up
-    </a>
-  </section>
+  @if (!user()) {
+    <section class="text-center">
+      <h4>Ready to Get Started?</h4>
+      <p>
+        If you're looking for a property or want to list your own, sign up or
+        log in today to get started!
+      </p>
+      <a
+        [routerLink]="['/login']"
+        routerLink="active"
+        class="btn btn-primary">
+        Log In
+      </a>
+      <a
+        [routerLink]="['/signup']"
+        routerLink="active"
+        class="btn btn-secondary ms-3">
+        Sign Up
+      </a>
+    </section>
+  }
 </div>
