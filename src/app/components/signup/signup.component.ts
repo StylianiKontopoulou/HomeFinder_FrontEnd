@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginForm } from 'src/app/shared/interfaces/login-form';
 import { UpdateUser } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +21,7 @@ import { UserService } from 'src/app/shared/services/user.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
@@ -29,7 +31,8 @@ export class SignupComponent implements OnInit {
   isEditMode: boolean = false;
   router = inject(Router);
   route = inject(ActivatedRoute);
-
+  snackBar = inject(MatSnackBar);
+  
   form = new FormGroup(
     {
       firstName: new FormControl('', Validators.required),
@@ -111,7 +114,10 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['home']);
           },
           error: (response) => {
-            console.log('Error updating the profile of user', response);
+            this.snackBar.open(response.error, 'Close', {
+              duration: 3000,
+              panelClass: ['error-toast'],
+            });
           },
         });
       } else {
@@ -123,7 +129,10 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['login']);
           },
           error: (response) => {
-            console.log('Error registering user', response);
+            this.snackBar.open(response.error, 'Close', {
+              duration: 3000,
+              panelClass: ['error-toast'],
+            });
           },
         });
       }
