@@ -7,6 +7,7 @@ import { FileNotFoundComponent } from './components/file-not-found/file-not-foun
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +46,9 @@ export const routes: Routes = [
   {
     path: 'profile/:id',
     component: SignupComponent,
+  },{
+    path: 'about-us',
+    component: AboutUsComponent,
   },
   {
     path: '',

@@ -1,20 +1,35 @@
 <div class="navbar navbar-dark bg-primary justify-content-between">
   <!-- Brand Section -->
-  <a role="button" class="navbar-brand ms-3" routerLink="">
+  <a
+    role="button"
+    class="navbar-brand ms-3"
+    routerLink="">
     Home Finder
   </a>
 
   <!-- Right Section -->
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center gap-3">
+    <div
+        role="button"
+        class="icon-link-hover text-light me-3"
+        routerLink="about-us">
+        About us
+      </div>
     <!-- If User is Logged In -->
     @if (user()) {
       <!-- Add Property Link -->
-      <div role="button" class="icon-link-hover text-light me-3" routerLink="property-form">
+      <div
+        role="button"
+        class="icon-link-hover text-light me-3"
+        routerLink="property-form">
         Add Property
       </div>
 
       <!-- My Properties Link -->
-      <div role="button" class="icon-link-hover text-light me-3" routerLink="my-properties">
+      <div
+        role="button"
+        class="icon-link-hover text-light me-3"
+        routerLink="my-properties">
         My Properties
       </div>
 
@@ -29,14 +44,22 @@
           Welcome, {{ user().firstName }}
         </span>
 
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="userDropdown">
           <li>
-            <a class="dropdown-item" role="button" (click)="updateUserProfile()">
+            <a
+              class="dropdown-item"
+              role="button"
+              (click)="updateUserProfile()">
               Edit my Profile
             </a>
           </li>
           <li>
-            <a class="dropdown-item" role="button" (click)="logout()">
+            <a
+              class="dropdown-item"
+              role="button"
+              (click)="logout()">
               Logout
             </a>
           </li>
@@ -45,21 +68,19 @@
     }
     <!-- If User is Not Logged In -->
     @else {
-      <span class="text-light me-3 d-flex gap-2 align-items-center">
+      <span class="text-light me-3 d-flex gap-3 align-items-center">
         <!-- Login Link -->
-        Login
-        <mat-icon
-          role="button"
-          class="icon-link-hover"
-          routerLink="login">
-          login
-        </mat-icon>
-
+        <div role="button" class="d-flex align-items-center" routerLink="login">
+          <span>Login</span>
+          <mat-icon class="me-1" aria-hidden="true">login</mat-icon>
+        </div>
+      
         <!-- Signup Link -->
-        <div role="button" class="icon-link-hover" routerLink="signup">
-          Signup
+        <div role="button" routerLink="signup" class="d-flex align-items-center">
+          <span>Signup</span>
         </div>
       </span>
+      
     }
   </div>
 </div>
