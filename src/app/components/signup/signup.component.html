@@ -94,7 +94,7 @@
                 form.get("phoneNumber").invalid &&
                 form.get("phoneNumber").touched
               ) {
-                <mat-error>Phone Number is required</mat-error>
+                <mat-error>Phone Number must have 10 digits</mat-error>
               }
             </mat-form-field>
           </div>
@@ -109,9 +109,18 @@
                 type="password"
                 formControlName="password" />
               @if (
-                form.get("password").invalid && form.get("password").touched
+                form.get("password").hasError("pattern") &&
+                form.get("password").touched
               ) {
-                <mat-error>Password is missing or invalid</mat-error>
+                <mat-error>Password must contain 1 digit, 1 lowercase letter, 1 uppercase letter and 1 special character (&#64;, #, $, %, ^, &, +, =).</mat-error>
+              }
+              @if (
+                (form.get("password").hasError("required") ||
+                  form.get("password").hasError("minlength") ||
+                  form.get("password").hasError("maxlength")) &&
+                form.get("password").touched
+              ) {
+                <mat-error>Password must be 4-20 characters.</mat-error>
               }
             </mat-form-field>
           </div>
