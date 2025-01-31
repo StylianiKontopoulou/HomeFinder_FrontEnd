@@ -1,5 +1,5 @@
 {
-  "name": "home-sweet-home",
+  "name": "home-finder",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng deploy --base-href=https://StylianiKontopoulou.github.io/home-sweet-home/"
+    "deploy": "https://StylianiKontopoulou.github.io/home-finder/"
   },
   "private": true,
   "dependencies": {

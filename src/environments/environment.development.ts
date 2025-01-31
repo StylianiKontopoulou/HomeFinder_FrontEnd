@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiURL: 'http://localhost:8080/HomeSweetHome/resources',
+    apiURL: 'http://localhost:8080/HomeFinder/resources',
   };

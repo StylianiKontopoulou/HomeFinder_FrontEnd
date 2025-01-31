@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "home-sweet-home": {
+    "home-finder": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -38,7 +38,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/home-sweet-home",
+            "outputPath": "dist/home-finder",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -94,10 +94,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "home-sweet-home:build:production"
+              "buildTarget": "home-finder:build:production"
             },
             "development": {
-              "buildTarget": "home-sweet-home:build:development"
+              "buildTarget": "home-finder:build:development"
             }
           },
           "defaultConfiguration": "development"
