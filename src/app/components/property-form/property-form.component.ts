@@ -50,7 +50,7 @@ export class PropertyFormComponent implements OnInit {
   propertyConditions: { value: PropertyCondition; label: string }[];
   energyClasses: { value: EnergyClass; label: string }[];
   propertyTypes: { value: PropertyType; label: string }[];
-  propertyUses: {value: PropertyUse; label: string }[];
+  propertyUses: { value: PropertyUse; label: string }[];
   areas: Area[];
   imageError: string | null = null;
 
@@ -61,15 +61,15 @@ export class PropertyFormComponent implements OnInit {
     yearOfConstruction: new FormControl('', Validators.required),
     price: new FormControl('', Validators.required),
     squareMeters: new FormControl('', Validators.required),
-    floor: new FormControl('', Validators.required),
-    bathrooms: new FormControl('', Validators.required),
-    bedrooms: new FormControl('', Validators.required),
+    floor: new FormControl('', [Validators.required]),
+    bathrooms: new FormControl('', [Validators.required, Validators.min(0)]),
+    bedrooms: new FormControl('', [Validators.required, Validators.min(0)]),
     condition: new FormControl('', Validators.required),
     energyClass: new FormControl('', Validators.required),
     propertyType: new FormControl('', Validators.required),
     areaId: new FormControl('', Validators.required),
     image: new FormControl(''),
-    propertyUse: new FormControl('', Validators.required)
+    propertyUse: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
@@ -130,7 +130,7 @@ export class PropertyFormComponent implements OnInit {
             propertyType: response.propertyType.toString(),
             areaId: response.area.id,
             image: response.image?.toString(),
-            propertyUse: response.propertyUse.toString()
+            propertyUse: response.propertyUse.toString(),
           });
         },
         error: (response) => {
