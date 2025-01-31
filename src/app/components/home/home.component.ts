@@ -28,7 +28,6 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-
   @ViewChild('filterDrawer') filterDrawer!: MatDrawer;
 
   propertyService = inject(PropertyService);
@@ -75,6 +74,10 @@ export class HomeComponent implements OnInit {
           !filters.propertyTypes.length ||
           filters.propertyTypes.find((x) => x === property.propertyType) !=
             null) &&
+        (!filters.propertyUses ||
+          !filters.propertyUses.length ||
+          filters.propertyUses.find((x) => x === property.propertyUse) !=
+            null) &&
         (!filters.minSquareMeters ||
           property.squareMeters >= filters.minSquareMeters) &&
         (!filters.maxSquareMeters ||
@@ -107,5 +110,4 @@ export class HomeComponent implements OnInit {
   closeFilterDrawer() {
     this.filterDrawer.close();
   }
-
 }
